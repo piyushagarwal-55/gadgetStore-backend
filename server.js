@@ -17,24 +17,34 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middlewares
+// ✅ CORS Setup
+const allowedOrigins = [
+  "https://gatdgetstore-frontend-fy5m.vercel.app" // removed trailing slash
+];
+
 app.use(
   cors({
-    origin: "https://gatdgetstore-frontend-fy5m.vercel.app", // your frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
 
+// Middlewares
 app.use(express.json());
 app.use(morgan('dev'));
 
-// API Routes
+// Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
-// Root route
+// Health Check
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
