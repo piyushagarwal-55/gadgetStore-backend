@@ -19,7 +19,7 @@ connectDB();
 
 // ✅ CORS Setup
 const allowedOrigins = [
-  "https://gatdgetstore-frontend-fy5m.vercel.app" // removed trailing slash
+  "https://gadgetstore-piyush.vercel.app" // removed trailing slash
 ];
 
 app.use(

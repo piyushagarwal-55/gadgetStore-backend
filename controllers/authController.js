@@ -64,6 +64,7 @@ export const registerController = async (req, res) => {
 
 //POST LOGIN
 export const loginController = async (req, res) => {
+  console.log("JWT_SECRET:", process.env.JWT_SECRET);
   try {
     const { email, password } = req.body;
     //validation
